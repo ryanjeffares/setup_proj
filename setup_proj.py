@@ -43,18 +43,19 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 FetchContent_Declare(fmt
     GIT_REPOSITORY https://github.com/fmtlib/fmt.git
     GIT_TAG master
+    GIT_SHALLOW ON
 )
 FetchContent_MakeAvailable(fmt)
 
 add_executable({project_name} src/main.cpp)
 set_property(TARGET {project_name} PROPERTY CXX_STANDARD 23)
 if (CMAKE_BUILD_TYPE MATCHES Debug)
-    target_compile_definitions({project_name} PRIVATE {project_name.upper()}_DEBUG)
+    target_compile_definitions({project_name} PRIVATE {project_name.upper().replace('-', '_')}_DEBUG)
 endif()
 
 target_compile_options({project_name} PRIVATE -Wall -Wextra -Wpedantic -Werror)
 
-target_link_libraries({project_name} PRIVATE fmt::fmt-header-only)
+target_link_libraries({project_name} PRIVATE fmt::fmt)
 """
 
     with open(os.path.join(project_dir, 'CMakeLists.txt'), 'w') as f:
