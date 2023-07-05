@@ -17,4 +17,9 @@ setup_proj <project-name>
 which generates the following in the directory you called the script:
 
 ```
+├── <project-name>
+│   ├── .gitignore
+│   ├── CMakeLists.txt
+│   └── src
+│       └── main.cpp
 ```
